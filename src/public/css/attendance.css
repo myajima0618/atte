@@ -1,0 +1,41 @@
+.attendance-date {
+    margin: 20px auto;
+    padding: 10px 0;
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.attendance-date input {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.attendance-list {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.attendance-list__inner {
+    width: 100%;
+}
+
+.attendance-list__row {
+    border-top: 1.5px solid #969696;
+}
+
+.attendance-list__row:last-of-type {
+    border-bottom: 1.5px solid #969696;
+}
+
+.attendance-list__header,
+.attendance-list__item {
+    padding: 18px 0;
+    width: 20%;
+    text-align: center;
+}
+
