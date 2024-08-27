@@ -137,6 +137,7 @@ class AttendanceController extends Controller
     public function show()
     {
         $date = Carbon::now()->format('Y-m-d');
+        
         return view('attendance', compact('date'));
     }
 }
