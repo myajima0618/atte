@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance;
+use App\models\Rest;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -136,8 +137,52 @@ class AttendanceController extends Controller
     /*------------------------*/
     public function show()
     {
-        $date = Carbon::now()->format('Y-m-d');
-        
-        return view('attendance', compact('date'));
+        //$date = Carbon::now()->format('Y-m-d');
+        $date = '2024-08-27';
+
+        $attendances = Attendance::with('rest', 'user')
+                        ->where('date', $date)
+                        ->orderBy('check_in_time', 'ASC')
+                        ->orderBy('user_id', 'ASC')
+                        ->Paginate(5);
+
+        foreach($attendances as $attendance) {
+            $rest_time = 0;
+
+            foreach($attendance['rest'] as $rest) {
+                // 休憩開始時間
+                $rest_start_time = new Carbon($rest['rest_start_time']);
+                // 休憩終了時間
+                $rest_end_time = new Carbon($rest['rest_end_time']);
+                // 差分の秒数を計算
+                $rest_seconds = $rest_start_time->diffInSeconds($rest_end_time);
+                // 休憩時間を足していく
+                $rest_time = $rest_time + $rest_seconds;
+            }
+
+            // totalの休憩時間を計算
+            $total_rests = Rest::getTotal($rest_time);
+            // 休憩時間の合計を配列に格納
+            $attendance['rest'] = [
+                'total_rests' => $total_rests,
+            ];
+
+            // 勤務開始時間
+            $check_in_time = new Carbon($attendance['check_in_time']);
+            // 勤務終了時間
+            $check_out_time = new Carbon($attendance['check_out_time']);
+            // 差分の秒数を計算
+            $work_seconds = $check_in_time->diffInSeconds($check_out_time);
+            // 勤務時間合計を計算（勤務時間-休憩時間）
+            $work_time = $work_seconds - $rest_time;
+            // totalの勤務時間を計算
+            $total_works = Rest::getTotal($work_time);
+            // 勤務時間の合計を配列に格納
+            $attendance['work'] = [
+                'total_works' => $total_works,
+            ];
+
+        }
+        return view('attendance', compact('date', 'attendances'));
     }
 }
