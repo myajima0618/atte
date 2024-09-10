@@ -1,17 +1,35 @@
 .attendance-date {
     margin: 20px auto;
     padding: 10px 0;
-    width: 20%;
+    width: 30%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
+.attendance-date__prev,
+.attendance-date__next {
+    padding: 5px 10px;
+    background: #fff;
+    border: 1px solid #2384CF;
+}
+
+.attendance-date__prev a,
+.attendance-date__next a {
+    color: #2384CF;
+    font-weight: bold;
+}
+
+.attendance-date__selected {
+    width: 45%;
+}
+
 .attendance-date input {
+    padding: 10px 30px;
     border: none;
     outline: none;
     background: none;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
 }
 
@@ -39,3 +57,25 @@
     text-align: center;
 }
 
+.pagination {
+    margin: 0 auto;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination .active {
+    background-color: #2384CF;
+    color: #fff;
+}
+
+.pagination .disabled {
+    color: #707070;
+}
+
+.page-item {
+    padding: 5px 10px;
+    border: 1px solid #f2f2f2;
+    display: block;
+    background-color: #fff;
+}

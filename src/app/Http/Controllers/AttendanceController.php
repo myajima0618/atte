@@ -7,6 +7,8 @@ use App\Models\Attendance;
 use App\models\Rest;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Illuminate\Pagination\Paginator;
 
 class AttendanceController extends Controller
 {
@@ -135,16 +137,24 @@ class AttendanceController extends Controller
     /*------------------------*/
     /* 日付別勤怠ページ表示
     /*------------------------*/
-    public function show()
+    public function show(Request $request)
     {
-        //$date = Carbon::now()->format('Y-m-d');
-        $date = '2024-08-27';
+        if($request->has('date')) {
+            $date = CarbonImmutable::parse($request->date);
+        } else {
+            $date = CarbonImmutable::now();
+        }
+
+        $prev_day = $date->subDay()->format('Y-m-d');
+        $next_day = $date->addDay()->format('Y-m-d');
+        $date = $date->format('Y-m-d');
 
         $attendances = Attendance::with('rest', 'user')
                         ->where('date', $date)
                         ->orderBy('check_in_time', 'ASC')
                         ->orderBy('user_id', 'ASC')
-                        ->Paginate(5);
+                        ->Paginate(5)
+                        ->withQueryString();
 
         foreach($attendances as $attendance) {
             $rest_time = 0;
@@ -183,6 +193,9 @@ class AttendanceController extends Controller
             ];
 
         }
-        return view('attendance', compact('date', 'attendances'));
+
+        return view('attendance', compact('date', 'prev_day', 'next_day', 'attendances'));
     }
+
+    
 }

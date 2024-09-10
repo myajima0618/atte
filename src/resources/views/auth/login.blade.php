@@ -8,7 +8,7 @@
 <div class="content__title">
     <h3>ログイン</h3>
 </div>
-<form action="/login" method="post">
+<form action="/login" method="post" novalidate>
     @csrf
     <div class="content-box">
         <div class="content-box__item">

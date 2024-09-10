@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 //use Illuminate\Support\Facades\Password;
+
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 use Illuminate\Validation\Rules\Password;
 
@@ -27,10 +30,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // passwordデフォルト設定
-        Password::defaults(function() {
+        Password::defaults(function () {
             return Password::min(8)
-                        ->letters()
-                        ->numbers();
+                ->letters()
+                ->numbers();
         });
+
     }
 }
