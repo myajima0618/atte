@@ -42,7 +42,13 @@
         <tr class="attendance-list__row" id="data-list">
             <td class="attendance-list__item">{{ $attendance['user']['name'] }}</td>
             <td class="attendance-list__item">{{ $attendance['check_in_time']}}</td>
-            <td class="attendance-list__item">{{ $attendance['check_out_time'] }}</td>
+            <td class="attendance-list__item">
+                @if($attendance['check_out_time'] != null)
+                    {{ $attendance['check_out_time'] }}
+                @else
+                     - 
+                @endif
+            </td>
             <td class="attendance-list__item">{{ $attendance['rest']['total_rests'] }}</td>
             <td class="attendance-list__item">{{ $attendance['work']['total_works'] }}</td>
         </tr>
