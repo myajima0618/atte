@@ -54,3 +54,32 @@
     font-size: 12px;
     color: #f00;
 }
+
+.content__text {
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+}
+
+.content__title--notice {
+    font-size: 22px;
+    text-align: center;
+}
+
+.content__resend {
+    margin: 0 auto;
+    padding: 10px 15px;
+    width: 180px;
+    background: #948C89;
+    border-radius: 5px;
+}
+
+.content__resend-submit {
+    border: none;
+    background: none;
+    color: #fff;
+}
+
+.content__resend-alert {
+    color: #e17777;
+}
