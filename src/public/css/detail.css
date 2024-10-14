@@ -1,0 +1,78 @@
+.page-back {
+    padding: 5px 15px;
+    text-decoration: underline;
+    color: #969696;
+}
+
+.page-back a {
+    color: #969696;
+    font-size: 14px;
+}
+
+.detail-list {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.detail-list__months {
+    text-align: center;
+}
+
+.detail-list__months a {
+    display: inline-block;
+    margin: 0 10px;
+    color: #353535;
+}
+
+.detail-list__months--selected {
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+}
+
+.detail-list__title {
+    margin: 15px 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-list__user {
+    margin: 0;
+    padding: 8px 20px;
+    font-size: 18px;
+}
+
+.detail-list__date {
+    margin: 0;
+    width: 20%;
+}
+
+.detail-list__date input {
+    padding: 8px 0;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.detail-list__inner {
+    width: 100%;
+}
+
+.detail-list__row {
+    border-top: 1.5px solid #969696;
+}
+
+.detail-list__row:last-of-type {
+    border-bottom: 1.5px solid #969696;
+}
+
+.detail-list__header,
+.detail-list__item {
+    padding: 18px 0;
+    text-align: center;
+}

@@ -27,6 +27,7 @@
             <ul class="header-nav__inner">
                 <li class="header-nav__item"><a href="/">ホーム</a></li>
                 <li class="header-nav__item"><a href="/attendance">日付一覧</a></li>
+                <li class="header-nav__item"><a href="/user">ユーザー一覧</a></li>
                 <li class="header-nav__item">
                     <form action="/logout" method="post" name="logout">
                         @csrf

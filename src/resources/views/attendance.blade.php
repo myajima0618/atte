@@ -14,17 +14,18 @@
 </script>
 <div class="attendance-date">
     <div class="attendance-date__prev">
-        <a href="/attendance/?date={{ $prev_day }}">
+        <a href="/attendance?date={{ $prev_day }}">
             &#60;
         </a>
     </div>
     <form action="/attendance" method="get" class="attendance-date__selected">
+        @csrf
         <div>
             <input type="text" id="datepicker" value="{{ $date }}" name="date" onchange="this.form.submit()">
         </div>
     </form>
     <div class="attendance-date__next">
-        <a href="/attendance/?date={{ $next_day }}">
+        <a href="/attendance?date={{ $next_day }}">
             &#62;
         </a>
     </div>

@@ -1,0 +1,65 @@
+.user-list {
+    margin: 30px auto 10px;
+    width: 70%;
+}
+
+.user-list__title {
+    text-align: center;
+}
+
+.user-list__inner {
+    width: 100%;
+}
+
+.user-list__row {
+    border-top: 1.5px solid #969696;
+}
+
+.user-list__row:last-of-type {
+    border-bottom: 1.5px solid #969696;
+}
+
+.user-list__header,
+.user-list__item {
+    padding: 18px 0;
+    text-align: center;
+}
+
+.user-list__button {
+    margin: 0 auto;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: #948C89;
+    color: #fff;
+}
+
+.w50 {
+    width: 50%;
+}
+
+.w30 {
+    width: 30%;
+}
+
+.pagination {
+    margin: 0 auto;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination .active {
+    background-color: #2384CF;
+    color: #fff;
+}
+
+.pagination .disabled {
+    color: #707070;
+}
+
+.page-item {
+    padding: 5px 10px;
+    border: 1px solid #f2f2f2;
+    display: block;
+    background-color: #fff;
+}

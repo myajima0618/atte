@@ -42,7 +42,7 @@
     </form>
 </div>
 <div class="stamp-box">
-    <form action="/break" method="post" class="stamp-box__inner">
+    <form action="/rest" method="post" class="stamp-box__inner">
         @csrf
         <div class="stamp-box__item">
             @if($status == '1')
@@ -52,7 +52,7 @@
             @endif
         </div>
     </form>
-    <form action="/break" method="post" class="stamp-box__inner">
+    <form action="/rest" method="post" class="stamp-box__inner">
         @method('PATCH')
         @csrf
         <div class="stamp-box__item">
