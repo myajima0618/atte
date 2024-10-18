@@ -58,8 +58,6 @@ class UserController extends Controller
         // 休憩時間取得処理
         $attendances = Attendance::getRestTimes($attendances);
 
-        //var_dump($attendances[0]);
-
         return view('detail', compact('page', 'id', 'user', 'month', 'attendances'));
     }
 
