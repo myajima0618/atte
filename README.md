@@ -51,18 +51,20 @@ phpMyAdmin：http://localhost:8080/
 ##### 5．MySQL（my.cnf）の設定
  Github上に上がっているdocker/myaql/my.cnfを参考にしてください
 ##### 6．docker-compose コマンドでビルド
- $ docker compose up -d --build  
+	$ docker compose up -d --build  
  ビルドが終了したらDocker desktopを開き、atteコンテナができているか確認する
 
 ### ■Laravelのインストール
 ##### 1．PHPコンテナにログイン
-　$ docker compose exec php bash
+	$ docker compose exec php bash
 ##### 2．Laravelパッケージインストール 
-　$ composer -v
+	$ composer -v
 ##### 3．Laravelのプロジェクトの作成
-　$ composer create-project "laravel/laravel=8.*" . --prefer-dist  
-　http://localhost/　にアクセスするとLaravel のウェルカムページが表示されていれば成功。  
-　Permission deniedエラーが出ている場合は、コマンドライン上で$ sudo chmod -R 777 src/*を実行する。  
+	$ composer create-project "laravel/laravel=8.*" . --prefer-dist  
+　http://localhost/	にアクセスするとLaravel のウェルカムページが表示されていれば成功。  
+　Permission deniedエラーが出ている場合は、コマンドライン上で以下のコマンドを実行する  
+	$ sudo chmod -R 777 src/*
+ 
 ##### 4．時間設定の編集
 ##### 5．.envファイルの環境変数を変更
 　docker-compose.ymlで作成したデータベース名、ユーザ名、パスワードを記述する
@@ -74,7 +76,7 @@ phpMyAdmin：http://localhost:8080/
 	$ php artisan make:migration create_rests_table  
 	_ usersテーブルについてはデフォルトのものを活用  
 ##### 2．カラム設定（マイグレーションファイルへの記述）  
-	手順7で作成したファイルにカラムの設定を行う（参照：テーブル仕様書）  
+ 手順1で作成したファイルにカラムの設定を行う（参照：テーブル仕様書）  
 ##### 3．マイグレーションの実行  
 	$ php artisan migrate
  
@@ -88,15 +90,14 @@ phpMyAdmin：http://localhost:8080/
  
 ### ■Fortifyの導入
 ##### 1．Fortifyのインストール
-　PHPコンテナ内で以下のコマンドを実行  
-  $ composer require laravel/fortify  
-  $ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"  
-  $ php artisan migrate  
+	$ composer require laravel/fortify  
+	$ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"  
+	$ php artisan migrate  
 ##### 2．app.php、FortifyServiceProvider.php、RouteServiceProvider.phpの修正
 ##### 3．日本語ファイルのインストール
 　PHPコンテナ内で以下のコマンドを実行  
- $ composer require laravel-lang/lang:~7.0 --dev  
- $ cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
+	$ composer require laravel-lang/lang:~7.0 --dev  
+	$ cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
 　
 ### ■メール検証用のテストサーバMailtrapの導入
 ##### 1．サイトへアクセスする
