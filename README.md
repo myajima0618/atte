@@ -3,7 +3,7 @@
 ![image](https://github.com/user-attachments/assets/42224498-10bf-4070-a85b-b7613ce06ce1)
 
 ## 作成した目的
-従業員の人事評価を行うため
+従業員の勤怠管理・人事評価を行うため
 
 ## アプリケーションURL
 開発環境：http://localhost/  
@@ -63,7 +63,9 @@ phpMyAdmin：http://localhost:8080/
 	$ composer create-project "laravel/laravel=8.*" . --prefer-dist  
 　http://localhost/	にアクセスするとLaravel のウェルカムページが表示されていれば成功。  
 　Permission deniedエラーが出ている場合は、コマンドライン上で以下のコマンドを実行する。  
-	```$ sudo chmod -R 777 src/*
+
+	 $ sudo chmod -R 777 src/*
+ 
  
 ##### 4．時間設定の編集
 ##### 5．.envファイルの環境変数を変更
@@ -80,12 +82,20 @@ phpMyAdmin：http://localhost:8080/
 ##### 3．マイグレーションの実行  
 	$ php artisan migrate
  
-### ■シーディング
+### ■ダミーレコードの作成
 ##### 1．シーダーファイルの作成  
 	$ php artisan make:seeder AttendancesTableSeeder  
 	$ php artisan make:seeder UsersTableSeeder  
-##### 2．シーダーファイルの編集後、シーダーファイルの登録  
-##### 3．シーディングの実行  
+##### 2．ファクトリの作成
+　definitonメソッドの中の [] のなかにデータの定義をする  
+ 
+	$ php artisan make:factory AttendanceFactory
+	$ php artisan make:factory RestFactory
+	$ php artisan make:factory UserFactory
+##### 3．ファクトリのシーダーへの設定
+　AttendancesTableSeeder・UsersTableSeederファイルに設定する  
+　50ユーザー、直近1ヶ月のデータ1500レコード作成  
+##### 4．シーディングの実行  
 	$ php artisan db:seed
  
 ### ■Fortifyの導入
@@ -96,6 +106,7 @@ phpMyAdmin：http://localhost:8080/
 ##### 2．app.php、FortifyServiceProvider.php、RouteServiceProvider.phpの修正
 ##### 3．日本語ファイルのインストール
 　PHPコンテナ内で以下のコマンドを実行  
+ 
 	$ composer require laravel-lang/lang:~7.0 --dev  
 	$ cp -r ./vendor/laravel-lang/lang/src/ja ./resources/lang/
 　
