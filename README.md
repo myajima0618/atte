@@ -63,7 +63,7 @@ phpMyAdmin：http://localhost:8080/
 	$ composer create-project "laravel/laravel=8.*" . --prefer-dist  
 　http://localhost/	にアクセスするとLaravel のウェルカムページが表示されていれば成功。  
 　Permission deniedエラーが出ている場合は、コマンドライン上で以下のコマンドを実行する。  
-	$ sudo chmod -R 777 src/*
+	```$ sudo chmod -R 777 src/*
  
 ##### 4．時間設定の編集
 ##### 5．.envファイルの環境変数を変更
