@@ -36,20 +36,31 @@ phpMyAdmin：http://localhost:8080/
 ![atte-er](https://github.com/user-attachments/assets/42dc327e-acb5-4f7c-a480-97e1ca8faab5)
 
 # 環境構築
-### ■セットアップ（自分で一から作成する場合）
-##### 1．ディレクトリの作成
- $mkdir atte でディレクトリを作成し、以下のようなフォルダ構成にする
- ![image](https://github.com/user-attachments/assets/9944ec2b-7651-4ecb-8290-8178663301b0)  
- *data、srcはディレクトリ、Dockerfileはファイルとして作成してください  
- *ディレクトリ作成：mkdir ●●　ファイル作成：touch ●●  
-##### 2．Docker-compose.yml の作成
- Githubに上がっているdocker-compose.ymlを参考にしてください
-##### 3．nginx（default.conf）の作成
- Github上に上がっているdocker/nginx/default.confを参考にしてください
-##### 4．PHP（Dockerfile、php.ini）の設定
- Github上に上がっているdocker/php/Dockerfile、php.iniを参考にしてください
-##### 5．MySQL（my.cnf）の設定
- Github上に上がっているdocker/myaql/my.cnfを参考にしてください
+### ■Dockerビルド
+##### 1．任意の場所でリポジトリをクローンする（コマンドライン）
+	$ git clone git@github.com:myajima0618/atte.git
+
+##### 2．リモートリポジトリの作成（GitHub）
+##### 3．リモートリポジトリの紐付け先を変更する（コマンドライン）
+
+	$ git remote set-url origin **作成したリポジトリのurl**
+　
+ リポジトリのurlについては、2で作成したリモートリポジトリのページに記載されているリンクをコピーする。  
+ SSH を選択しているかどうかをしっかりチェックすること。  
+ ＊実行前に現状のリンクを確認するコマンドを実行しておくと確認がスムーズになる。  
+ 
+	$ git remote -v
+ 
+##### 4．紐づけが成功しているかの確認（コマンドライン）
+　以下コマンドを実行し、紐づけ先が自分の作成したURLになっていれば成功。  
+ 
+	$ git remote -v
+ 
+##### 5．現在のローカルリポジトリのデータをリモートリポジトリに反映させておく（コマンドライン）
+	$ git add .
+	$ git commit -m "リモートリポジトリの変更"
+	$ git push origin main
+
 ##### 6．docker-compose コマンドでビルド
 	$ docker compose up -d --build  
  ビルドが終了したらDocker desktopを開き、atteコンテナができているか確認する
@@ -58,53 +69,106 @@ phpMyAdmin：http://localhost:8080/
 ##### 1．PHPコンテナにログイン
 	$ docker compose exec php bash
 ##### 2．Laravelパッケージインストール 
-	$ composer -v
-##### 3．Laravelのプロジェクトの作成
-	$ composer create-project "laravel/laravel=8.*" . --prefer-dist  
-　http://localhost/	にアクセスするとLaravel のウェルカムページが表示されていれば成功。  
-　Permission deniedエラーが出ている場合は、コマンドライン上で以下のコマンドを実行する。  
+	$ composer install
+##### 3．.env.exampleファイルから.envファイルを作成
+	$ cp .env.example .env
+##### 4．.envファイルの環境変数を変更
+　docker-compose.ymlで設定されているデータベース名、ユーザ名、パスワードを記述する
+##### 5．アプリケーションキーの設定（コマンドライン）
+	$ php artisan key:generate
+##### 6．phpMyAdminでデータベースの存在確認（ブラウザ）
+　http://localhost:8080/	にアクセスし、設定したDBが表示されていれば成功。
 
-	 $ sudo chmod -R 777 src/*
- 
- 
-##### 4．時間設定の編集
-##### 5．.envファイルの環境変数を変更
-　docker-compose.ymlで作成したデータベース名、ユーザ名、パスワードを記述する
-##### 6．php artisan key:generate
-
-### ■テーブル作成
-##### 1．マイグレーションファイルの作成
+### ■テーブル作成（以下で作成するファイルがすでに存在している場合は作成不要）
+##### 1．マイグレーションファイルの作成（コマンドライン）
 	$ php artisan make:migration create_attendances_table  
 	$ php artisan make:migration create_rests_table  
 	_ usersテーブルについてはデフォルトのものを活用  
 ##### 2．カラム設定（マイグレーションファイルへの記述）  
  手順1で作成したファイルにカラムの設定を行う（参照：テーブル仕様書）  
-##### 3．マイグレーションの実行  
+##### 3．マイグレーションの実行（コマンドライン）  
 	$ php artisan migrate
  
-### ■ダミーレコードの作成
-##### 1．シーダーファイルの作成  
+### ■ダミーレコードの作成（以下で作成するファイルがすでに存在している場合は作成不要）
+##### 1．シーダーファイルの作成（コマンドライン）  
 	$ php artisan make:seeder AttendancesTableSeeder  
 	$ php artisan make:seeder UsersTableSeeder  
-##### 2．ファクトリの作成
-　definitonメソッドの中の [] のなかにデータの定義をする  
+##### 2．ファクトリの作成（エディタ）
  
 	$ php artisan make:factory AttendanceFactory
 	$ php artisan make:factory RestFactory
 	$ php artisan make:factory UserFactory
-##### 3．ファクトリのシーダーへの設定
+
+　definitonメソッドの中の [] のなかにデータの定義をする  
+##### 3．ファクトリのシーダーへの設定（エディタ）
 　AttendancesTableSeeder・UsersTableSeederファイルに設定する  
 　50ユーザー、直近1ヶ月のデータ1500レコード作成  
-##### 4．シーディングの実行  
+  必要に応じて設定を変更しても問題ない。
+##### 4．シーディングの実行（コマンドライン）  
 	$ php artisan db:seed
  
 ### ■Fortifyの導入
-##### 1．Fortifyのインストール
+##### 1．Fortifyのインストール（コマンドライン：PHPコンテナ内）
 	$ composer require laravel/fortify  
 	$ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"  
 	$ php artisan migrate  
-##### 2．app.php、FortifyServiceProvider.php、RouteServiceProvider.phpの修正
-##### 3．日本語ファイルのインストール
+##### 2．app.phpの修正
+###### ロケールの変更
+	- 'locale' => 'en',
+	+ 'locale' => 'ja',
+
+###### プロバイダーの追加
+	
+	'providers' => [
+		// 中略
+		  App\Providers\RouteServiceProvider::class,
+		+ App\Providers\FortifyServiceProvider::class,
+	]
+
+##### 3．FortifyServiceProvider.phpの修正
+###### 以下を削除
+	public function boot()
+	{
+	Fortify::createUsersUsing(CreateNewUser::class);
+	-         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+	-         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
+	-         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+	
+	-         RateLimiter::for('login', function (Request $request) {
+	-             $email = (string) $request->email;
+	
+	-             return Limit::perMinute(5)->by($email.$request->ip());
+	-         });
+	
+	-         RateLimiter::for('two-factor', function (Request $request) {
+	-             return Limit::perMinute(5)->by($request->session()->get('login.id'));
+	-         });
+	}
+###### 以下を追加
+	public function boot(): void
+	{
+		Fortify::createUsersUsing(CreateNewUser::class);
+		        
+		Fortify::registerView(function() {
+		        return view('auth.register');
+		});
+		
+		Fortify::loginView(function () {
+		        return view('auth.login');
+		});
+		
+		RateLimiter::for('login', function (Request $request) {
+		        $email = (string) $request->email;
+		
+		        return Limit::perMinute(10)->by($email . $request->ip());
+		});
+	}
+##### 4．RouteServiceProvider.phpの修正
+###### ログイン後のリダイレクト先の変更
+	- public const HOME = '/dashboard';
+	+ public const HOME = '/';
+
+##### 5．日本語ファイルのインストール
 　PHPコンテナ内で以下のコマンドを実行  
  
 	$ composer require laravel-lang/lang:~7.0 --dev  
