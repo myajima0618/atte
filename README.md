@@ -79,28 +79,28 @@ phpMyAdmin：http://localhost:8080/
 ##### 6．phpMyAdminでデータベースの存在確認（ブラウザ）
 　http://localhost:8080/	にアクセスし、設定したDBが表示されていれば成功。
 
-### ■テーブル作成（以下で作成するファイルがすでに存在している場合は作成不要）
-##### 1．マイグレーションファイルの作成（コマンドライン）
+### ■テーブル作成
+##### 1．マイグレーションファイルの作成（コマンドライン）（以下のファイルがすでに存在している場合は次へ）
 	$ php artisan make:migration create_attendances_table  
 	$ php artisan make:migration create_rests_table  
 	_ usersテーブルについてはデフォルトのものを活用  
-##### 2．カラム設定（マイグレーションファイルへの記述）  
+##### 2．カラム設定（マイグレーションファイルへの記述）（設定済みの場合は次へ）  
  手順1で作成したファイルにカラムの設定を行う（参照：テーブル仕様書）  
 ##### 3．マイグレーションの実行（コマンドライン）  
 	$ php artisan migrate
  
-### ■ダミーレコードの作成（以下で作成するファイルがすでに存在している場合は作成不要）
-##### 1．シーダーファイルの作成（コマンドライン）  
+### ■ダミーレコードの作成
+##### 1．シーダーファイルの作成（コマンドライン）（以下のファイルがすでに存在している場合は次へ）  
 	$ php artisan make:seeder AttendancesTableSeeder  
 	$ php artisan make:seeder UsersTableSeeder  
-##### 2．ファクトリの作成（エディタ）
+##### 2．ファクトリの作成（エディタ）（以下のファイルがすでに存在している場合は次へ）
  
 	$ php artisan make:factory AttendanceFactory
 	$ php artisan make:factory RestFactory
 	$ php artisan make:factory UserFactory
 
 　definitonメソッドの中の [] のなかにデータの定義をする  
-##### 3．ファクトリのシーダーへの設定（エディタ）
+##### 3．ファクトリのシーダーへの設定（エディタ）（設定済みの場合は次へ）
 　AttendancesTableSeeder・UsersTableSeederファイルに設定する  
 　50ユーザー、直近3ヶ月のデータ1500レコード作成  
   必要に応じて設定を変更しても問題ない。
