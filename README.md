@@ -102,7 +102,7 @@ phpMyAdmin：http://localhost:8080/
 　definitonメソッドの中の [] のなかにデータの定義をする  
 ##### 3．ファクトリのシーダーへの設定（エディタ）
 　AttendancesTableSeeder・UsersTableSeederファイルに設定する  
-　50ユーザー、直近1ヶ月のデータ1500レコード作成  
+　50ユーザー、直近3ヶ月のデータ1500レコード作成  
   必要に応じて設定を変更しても問題ない。
 ##### 4．シーディングの実行（コマンドライン）  
 	$ php artisan db:seed
